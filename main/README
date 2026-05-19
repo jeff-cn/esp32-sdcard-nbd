@@ -1,0 +1,23 @@
+项目用途:
+
+这个项目让 ESP32 成为一个 网络块设备服务器：
+
+电脑端：可以通过 NBD 客户端（Linux 的 /dev/nbd*）挂载 ESP32 上的 SD 卡
+
+应用场景：网络存储、远程文件访问、嵌入式设备数据共享
+
+优势：不需要 USB 连接，通过网络就能访问 SD 卡
+
+使用示例（Linux 客户端）:
+
+# 加载 NBD 模块
+sudo modprobe nbd
+
+# 连接 ESP32 的 NBD 服务器
+sudo nbd-client <ESP32_IP> 10809 /dev/nbd0
+
+# 挂载使用
+sudo mount /dev/nbd0 /mnt/sdcard
+
+# 断开
+sudo nbd-client -d /dev/nbd0
